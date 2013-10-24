@@ -11,6 +11,13 @@
         
         Once the application has been compiled and the server started, your application can be accessed at: <a href="http://localhost:9000" target="_blank">http://localhost:9000</a><br/>
         Check in <a href="#run" class="shortcut">Run</a> to see the server status.<br/>
+        This example app stores and displays a list of "Bar" objects in a database.
+    </p>
+</div>
+<div>
+    <h2>Handling Requests</h2>
+
+    <p>
         When you make an HTTP request to that URL, the Play server figures out what code to execute which will handle the request and return a response.  In this application the request handler for requests to the root URL (e.g. "/") are handled by a Java Controller.  You can use Java and Scala to create your controllers.<br/>
         Controllers asynchronously return HTTP responses of any content type (i.e. HTML, JSON, binary).  To see a JSON response produced by a Scala controller, click the "Get JSON Message" button.  This uses AJAX via jQuery to get data from the server and then display that on the web page.
     </p>
