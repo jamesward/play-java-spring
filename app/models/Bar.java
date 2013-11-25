@@ -11,7 +11,7 @@ public class Bar {
 
     @Id
     @GeneratedValue
-    public String id;
+    public int id;
 
     @Constraints.Required(message = "The name is required")
     public String name;
