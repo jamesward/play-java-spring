@@ -16,4 +16,4 @@ libraryDependencies ++= Seq(
   "cglib" % "cglib" % "2.2.2"
 )
 
-play.Project.playJavaSettings
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
