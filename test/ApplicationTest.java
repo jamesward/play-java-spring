@@ -1,13 +1,14 @@
 import models.Bar;
 import org.junit.Test;
 import play.data.Form;
-import play.libs.WS;
-import play.mvc.Content;
+import play.libs.ws.WS;
 import play.mvc.Result;
 import play.test.FakeRequest;
+import play.twirl.api.Html;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;
@@ -20,7 +21,7 @@ public class ApplicationTest {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 Form<Bar> form = Form.form(Bar.class);
-                Content html = views.html.index.render(form);
+                Html html = views.html.index.render(form);
                 assertThat(contentType(html)).isEqualTo("text/html");
                 assertThat(contentAsString(html)).contains("Welcome");
             }
@@ -85,7 +86,7 @@ public class ApplicationTest {
     public void realBarsRequest() {
         running(testServer(3333), new Runnable() {
             public void run() {
-                assertThat(WS.url("http://localhost:3333/bars").get().get().getStatus()).isEqualTo(OK);
+                assertThat(WS.url("http://localhost:3333/bars").get().get(5, TimeUnit.SECONDS).getStatus()).isEqualTo(OK);
             }
         });
     }

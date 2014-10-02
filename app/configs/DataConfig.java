@@ -16,6 +16,8 @@ import javax.sql.DataSource;
 import play.Logger;
 import play.Play;
 
+import java.util.HashMap;
+
 @Configuration
 @EnableTransactionManagement
 public class DataConfig {
@@ -29,6 +31,9 @@ public class DataConfig {
         entityManagerFactory.setPackagesToScan("models");
         entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
         entityManagerFactory.setDataSource(dataSource());
+        entityManagerFactory.setJpaPropertyMap(new HashMap<String, String>(){{
+            put("hibernate.hbm2ddl.auto", "create-drop");
+        }});
         entityManagerFactory.afterPropertiesSet();
         return entityManagerFactory.getObject();
     }
@@ -36,8 +41,7 @@ public class DataConfig {
     @Bean
     public PlatformTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager(entityManagerFactory());
-        transactionManager.setDataSource(dataSource());
-        transactionManager.setJpaDialect(new HibernateJpaDialect());
+
         return transactionManager;
     }
 
