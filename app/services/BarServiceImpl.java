@@ -1,7 +1,9 @@
 package services;
 
 
+import daos.BarDao;
 import models.Bar;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import play.Logger;
@@ -12,22 +14,19 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Service
-@Transactional
 public class BarServiceImpl implements BarService {
 
-    @PersistenceContext
-    EntityManager em;
+    @Autowired
+    private BarDao barDao;
 
     @Override
     public void addBar(Bar bar) {
-        em.persist(bar);
+        barDao.save(bar);
     }
 
     @Override
     public List<Bar> getAllBars() {
-        CriteriaQuery<Bar> c = em.getCriteriaBuilder().createQuery(Bar.class);
-        c.from(Bar.class);
-        return em.createQuery(c).getResultList();
+        return barDao.getAll();
     }
 
 }
