@@ -31,6 +31,7 @@ public class BarServiceTest extends AbstractTransactionalJUnit4SpringContextTest
         createBar();
         List<Bar> bars = barService.getAllBars();
         assertThat(bars.size()).isEqualTo(1);
+        assertThat(bars.get(0).name).isEqualTo("foo");
     }
 
 }

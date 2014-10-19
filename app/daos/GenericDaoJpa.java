@@ -30,10 +30,8 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
 
     @Override
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-    public T save(T object) {
-        T ret = entityManager.merge(object);
-        entityManager.flush();
-        return ret;
+    public void save(Object object) {
+        entityManager.persist(object);
     }
 
     @Override
